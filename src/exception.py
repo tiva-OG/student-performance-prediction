@@ -1,11 +1,11 @@
-import logging
 import sys
+from src.logger import logging
 
 
-def error_message_details(error, error_details: sys):
+def error_message_details(message, error_details: sys):
     _, _, exc_tb = error_details.exc_info()
     file_name = exc_tb.tb_frame.f_code.co_filename
-    error_message = f"Error occurred in python script [{file_name}]; line number [{exc_tb.tb_lineno}]; error message [{error}]"
+    error_message = f"Error occurred in python script [{file_name}]; line number [{exc_tb.tb_lineno}]; error message [{message}]"
 
     return error_message
 
@@ -18,11 +18,4 @@ class CustomException(Exception):
 
     def __str__(self):
         return self.message
-
-
-if __name__ == "__main__":
-    try:
-        a = 1 / 0
-    except Exception as e:
-        logging.info("trying to divide by zero")
-        raise CustomException(e, sys)
+ 
