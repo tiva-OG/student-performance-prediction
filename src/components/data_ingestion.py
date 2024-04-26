@@ -3,8 +3,10 @@ import pandas as pd
 import sys
 from dataclasses import dataclass
 from sklearn.model_selection import train_test_split
+
 from src.logger import logging
 from src.exception import CustomException
+from src.components.data_transformation import DataTransformation
 
 
 @dataclass
@@ -25,7 +27,6 @@ class DataIngestion:
 
         try:
             df = pd.read_csv(self.ingestion_config.data_path)
-
             logging.info("Read the dataset as pandas dataframe")
             os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path), exist_ok=True)
             df.to_csv(self.ingestion_config.raw_data_path, index=False, header=True)
@@ -48,4 +49,7 @@ class DataIngestion:
 
 if __name__ == "__main__":
     data_ingestion = DataIngestion()
-    data_ingestion.initiate_data_ingestion()
+    train_data_path, test_data_path = data_ingestion.initiate_data_ingestion()
+
+    data_transformation = DataTransformation()
+    train_arr, test_arr, _ = data_transformation.initiate_data_transformation(train_data_path, test_data_path)
