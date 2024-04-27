@@ -13,7 +13,7 @@ def index():
 
 
 # route for prediction page
-@app.route("/predictdata", methods=["GET", "POST"])
+@app.route("/predict-data", methods=["GET", "POST"])
 def predict_datapoint():
     if request.method == "GET":
         return render_template("home.html")
@@ -28,7 +28,6 @@ def predict_datapoint():
             reading_score=int(request.form.get("reading_score"))
         )
         df = data.get_data_as_dataframe()
-        print(df)
 
         predict_pipeline = PredictPipeline()
         results = predict_pipeline.predict(df)

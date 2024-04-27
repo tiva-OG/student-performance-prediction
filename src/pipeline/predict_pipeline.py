@@ -1,6 +1,5 @@
 import sys
 import pandas as pd
-import numpy as np
 
 from src.exception import CustomException
 from src.utils import load_object
@@ -58,3 +57,21 @@ class CustomData:
 
         except Exception as e:
             raise CustomException(e, sys)
+
+
+if __name__ == "__main__":
+    data = CustomData(
+        gender="female",
+        race_ethnicity="group B",
+        parental_level_of_education="bachelor's degree",
+        lunch="standard",
+        test_preparation_course="none",
+        writing_score=72,
+        reading_score=72
+    )
+    df = data.get_data_as_dataframe()
+    print(df)
+
+    predict_pipeline = PredictPipeline()
+    results = predict_pipeline.predict(df)
+    print(f"RESULTS: {results}")

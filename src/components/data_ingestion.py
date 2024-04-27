@@ -12,7 +12,7 @@ from src.components.model_trainer import ModelTrainer
 
 @dataclass
 class DataIngestionConfig:
-    data_path: str = "notebook/data/stud.csv"
+    data_path: str = "data/students.csv"
     raw_data_path: str = os.path.join("artifacts", "data.csv")
     train_data_path: str = os.path.join("artifacts", "train.csv")
     test_data_path: str = os.path.join("artifacts", "test.csv")

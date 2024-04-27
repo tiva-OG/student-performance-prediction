@@ -15,7 +15,7 @@ from src.utils import save_object
 
 @dataclass
 class DataTransformationConfig:
-    preprocessor_obj_path = os.path.join("artifacts", "preprocessor.pkl")
+    preprocessor_path = os.path.join("artifacts", "preprocessor.pkl")
 
 
 class DataTransformation:
@@ -31,7 +31,7 @@ class DataTransformation:
             "test_preparation_course"
         ]
 
-    def get_transformer_obj(self):
+    def get_preprocessor(self):
         """
         function responsible for initialising the data transformation object
         """
@@ -75,7 +75,7 @@ class DataTransformation:
             logging.info("Read the train and test data as pandas dataframe")
 
             logging.info("Obtaining the preprocessor object")
-            preprocessor = self.get_transformer_obj()
+            preprocessor = self.get_preprocessor()
 
             target_column = "math_score"
 
@@ -94,12 +94,12 @@ class DataTransformation:
             logging.info("Transformation completed. Saving preprocessor object")
             save_object(
                 obj=preprocessor,
-                file_path=self.transformation_config.preprocessor_obj_path
+                file_path=self.transformation_config.preprocessor_path
             )
 
             return (
-                train_arr, test_arr,
-                self.transformation_config.preprocessor_obj_path
+                train_arr,
+                test_arr
             )
 
         except Exception as e:
